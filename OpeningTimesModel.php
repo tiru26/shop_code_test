@@ -18,14 +18,13 @@ class OpeningTimesModel extends Model
 
     public function getData()
     {
-		$conn = mysqli_connect("localhost", "root", "test", "db123") or die("Connection Error: " . mysqli_error($conn));
+        $conn = mysqli_connect("localhost", "root", "test", "db123") or die("Connection Error: " . mysqli_error($conn));
 
         foreach ($this->data['opening_hours'] as $key=>$value) {
             if (!empty($key) && !empty($value)) {
                 mysqli_query($conn, "INSERT INTO tblopeningtime (day, timings) VALUES ('" . $key. "', '" . $value. "')");
             }
         }
-		
         return $this->data;
     }
 }
