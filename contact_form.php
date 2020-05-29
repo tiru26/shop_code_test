@@ -3,15 +3,15 @@
     <table>
         <tr>
             <td>Name : </td>
-            <td><input name="txtName" value=""/> </td>
+            <td><input name="txtName" value="" maxlength="20"/> </td>
         </tr>
         <tr>
             <td>Email Address : </td>
-            <td><input name="txtEmailAddress" value=""/> </td>
+            <td><input name="txtEmailAddress" value="" maxlength="30"/> </td>
         </tr>
         <tr>
             <td>Message : </td>
-            <td><textarea name="txt_message" rows="6" cols="25"> </textarea></td>
+            <td><textarea name="txt_message" rows="6" cols="25" maxlength="150"> </textarea></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -38,15 +38,13 @@ if (isset($_POST['btn_send'])) {
         $toEmail = "admin@codetest.com";
         $mailHeaders = "From: " . $name . "<". $email .">\r\n";
         if(mail($toEmail, $subject, $content, $mailHeaders)) {
-            $message = "Thank You! Your contact information send successfully.";
-        }
-
-        $conn = mysqli_connect("localhost", "root", "test", "db123") or die("Connection Error: " . mysqli_error($conn));
-        mysqli_query($conn, "INSERT INTO tblcontactform (user_fullname, user_email, mail_subject, content) VALUES ('" . $name. "', '" . $email. "','" . $subject. "','" . $content. "')");
-        $insert_id = mysqli_insert_id($conn);
-        if(!empty($insert_id)) {
-            $message = "Your contact information is saved successfully";
-            return true;
+			$conn = mysqli_connect("localhost", "root", "test", "db123") or die("Connection Error: " . mysqli_error($conn));
+			mysqli_query($conn, "INSERT INTO tblcontactform (user_fullname, user_email, mail_subject, content) VALUES ('" . $name. "', '" . $email. "','" . $subject. "','" . $content. "')");
+			$insert_id = mysqli_insert_id($conn);
+			if(!empty($insert_id)) {
+				echo "Thank You! Your contact information send successfully.";;
+				return true;
+			}
         }
 
     } else {
